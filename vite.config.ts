@@ -10,4 +10,8 @@ export default defineConfig({
   optimizeDeps: {
     include: ['lucide-react'],
   },
+  build: {
+    sourcemap: true,
+  },
+  envPrefix: 'VITE_'
 });
