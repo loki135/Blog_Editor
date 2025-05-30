@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Blog, BlogFormData } from '../types';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 export const api = {
   // Get all blogs

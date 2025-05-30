@@ -62,9 +62,9 @@ app.post('/api/blogs/save-draft', async (req, res) => {
       const updatedBlog = await Blog.findByIdAndUpdate(
         id,
         {
-          title,
-          content,
-          tags: parsedTags,
+        title,
+        content,
+        tags: parsedTags,
           status: 'draft'
         },
         { new: true }
@@ -103,9 +103,9 @@ app.post('/api/blogs/publish', async (req, res) => {
       const updatedBlog = await Blog.findByIdAndUpdate(
         id,
         {
-          title,
-          content,
-          tags: parsedTags,
+        title,
+        content,
+        tags: parsedTags,
           status: 'published'
         },
         { new: true }
