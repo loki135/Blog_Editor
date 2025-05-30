@@ -30,6 +30,19 @@ export const api = {
 
   // Delete blog
   deleteBlog: async (id: string): Promise<void> => {
-    await axios.delete(`${API_URL}/blogs/${id}`);
+    try {
+      await axios.delete(`${API_URL}/blogs/${id}`);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 404) {
+          throw new Error('Blog post not found');
+        } else if (error.response?.status === 400) {
+          throw new Error('Invalid blog ID');
+        } else {
+          throw new Error(error.response?.data?.error || 'Failed to delete blog');
+        }
+      }
+      throw error;
+    }
   }
 };

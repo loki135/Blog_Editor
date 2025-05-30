@@ -1,5 +1,5 @@
 export interface Blog {
-  id: string;
+  _id: string;
   title: string;
   content: string;
   tags: string[];
@@ -9,7 +9,7 @@ export interface Blog {
 }
 
 export interface BlogFormData {
-  id?: string;
+  _id?: string;
   title: string;
   content: string;
   tags: string;

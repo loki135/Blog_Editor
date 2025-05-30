@@ -29,7 +29,7 @@ const BlogList: React.FC = () => {
   }, []);
 
   const handleDeleteBlog = (id: string) => {
-    setBlogs(blogs.filter(blog => blog.id !== id));
+    setBlogs(blogs.filter(blog => blog._id !== id));
   };
 
   const filteredBlogs = blogs.filter(blog => {
@@ -111,7 +111,7 @@ const BlogList: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredBlogs.map((blog) => (
             <BlogCard 
-              key={blog.id} 
+              key={blog._id} 
               blog={blog} 
               onDelete={handleDeleteBlog} 
             />

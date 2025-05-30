@@ -13,14 +13,14 @@ const BlogCard: React.FC<BlogCardProps> = ({ blog, onDelete }) => {
   const navigate = useNavigate();
   
   const handleEdit = () => {
-    navigate(`/edit/${blog.id}`);
+    navigate(`/edit/${blog._id}`);
   };
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this blog?')) {
       try {
-        await api.deleteBlog(blog.id);
-        onDelete(blog.id);
+        await api.deleteBlog(blog._id);
+        onDelete(blog._id);
       } catch (error) {
         console.error('Failed to delete blog:', error);
       }

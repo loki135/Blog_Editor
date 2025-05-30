@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import Blog from './models/Blog.js';
+import mongoose from 'mongoose';
 
 // Load environment variables
 dotenv.config();
@@ -135,7 +136,14 @@ app.post('/api/blogs/publish', async (req, res) => {
 // Delete blog
 app.delete('/api/blogs/:id', async (req, res) => {
   try {
-    const deletedBlog = await Blog.findByIdAndDelete(req.params.id);
+    const { id } = req.params;
+
+    // Validate MongoDB ID format
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ error: 'Invalid blog ID format' });
+    }
+
+    const deletedBlog = await Blog.findByIdAndDelete(id);
     
     if (!deletedBlog) {
       return res.status(404).json({ error: 'Blog not found' });
@@ -143,7 +151,11 @@ app.delete('/api/blogs/:id', async (req, res) => {
     
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete blog' });
+    console.error('Delete blog error:', error);
+    res.status(500).json({ 
+      error: 'Failed to delete blog',
+      details: error.message 
+    });
   }
 });
 
