@@ -19,6 +19,11 @@ connectDB();
 app.use(cors());
 app.use(bodyParser.json());
 
+// Root route for health check
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Blog Editor API is running' });
+});
+
 // Parse tags from string
 const parseTags = (tagsString) => {
   if (!tagsString) return [];
@@ -157,6 +162,17 @@ app.delete('/api/blogs/:id', async (req, res) => {
       details: error.message 
     });
   }
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something broke!' });
+});
+
+// Handle 404 routes
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
 });
 
 // Start server
